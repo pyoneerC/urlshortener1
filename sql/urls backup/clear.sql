@@ -1,0 +1,1 @@
+TRUNCATE TABLE urls_backup CASCADE;

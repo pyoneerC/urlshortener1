@@ -1,0 +1,53 @@
+## Tests for endpoints.
+
+### LIVE TESTS
+
+### Create a new short URL
+POST {{DEPLOYMENT_URL}}/shorten?url={{URL1}}
+
+### Redirect to the original URL
+GET {{DEPLOYMENT_URL}}/?short_code={{SHORT_CODE}}
+
+### Get info about a short URL
+GET {{DEPLOYMENT_URL}}/shorten/{{SHORT_CODE}}
+
+### Update a short URL
+PUT {{DEPLOYMENT_URL}}/shorten?short_code={{SHORT_CODE}}&url={{URL2}}
+
+### Redirect to the new URL
+GET {{DEPLOYMENT_URL}}/?short_code={{SHORT_CODE}}
+
+### Get info about a short URL
+GET {{DEPLOYMENT_URL}}/shorten/{{SHORT_CODE}}
+
+### Delete a short URL from DB
+DELETE {{DEPLOYMENT_URL}}/shorten/{{SHORT_CODE}}
+
+### Health check
+GET {{DEPLOYMENT_URL}}/health
+
+### LOCAL TESTS
+
+### Create a new short URL
+POST http://127.0.0.1:8000/shorten?url={{URL1}}
+
+### Redirect to the original URL
+GET http://127.0.0.1:8000/?short_code={{SHORT_CODE}}
+
+### Get info about a short URL
+GET http://127.0.0.1:8000/shorten/{{SHORT_CODE}}
+
+### Update a short URL
+PUT http://127.0.0.1:8000/shorten?short_code={{SHORT_CODE}}&url={{URL2}}
+
+### Redirect to the new URL
+GET http://127.0.0.1:8000/?short_code={{SHORT_CODE}}
+
+### Get info about a short URL
+GET http://127.0.0.1:8000/shorten/{{SHORT_CODE}}
+
+### Delete a short URL from DB
+DELETE http://127.0.0.1:8000/shorten/{{SHORT_CODE}}
+
+### Health check
+GET http://127.0.0.1:8000/health

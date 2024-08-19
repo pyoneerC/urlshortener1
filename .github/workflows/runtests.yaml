@@ -1,0 +1,46 @@
+name: API Endpoint Tests
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 */3 * * *' # Run every 3 hours
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install httpie
+      run: sudo apt-get install httpie
+
+    - name: Run tests
+      run: |
+        
+        # Create a new short URL
+        http POST ${{ secrets.DEPLOYMENT_URL }}/shorten?url=${{ secrets.URL1 }} || echo "Failed to create a short URL"
+        
+        # Redirect to the original URL
+        http GET ${{ secrets.DEPLOYMENT_URL }}/?short_code=${{ secrets.SHORT_CODE }} || echo "Failed to redirect to the original URL"
+        
+        # Get info about a short URL
+        http GET ${{ secrets.DEPLOYMENT_URL }}/shorten/${{ secrets.SHORT_CODE }} || echo "Failed to get info about a short URL"
+        
+        # Update a short URL
+        http PUT ${{ secrets.DEPLOYMENT_URL }}/shorten?short_code=${{ secrets.SHORT_CODE }}&url=${{ secrets.URL2 }} || echo "Failed to update a short URL"
+        
+        # Redirect to the new URL
+        http GET ${{ secrets.DEPLOYMENT_URL }}/?short_code=${{ secrets.SHORT_CODE }} || echo "Failed to redirect to the new URL"
+        
+        # Get updated info about a short URL
+        http GET ${{ secrets.DEPLOYMENT_URL }}/shorten/${{ secrets.SHORT_CODE }} || echo "Failed to get updated info about a short URL"
+        
+        # Delete the short URL from DB
+        http DELETE ${{ secrets.DEPLOYMENT_URL }}/shorten/${{ secrets.SHORT_CODE }} || echo "Failed to delete a short URL"
+        
+        # Health check
+        http GET ${{ secrets.DEPLOYMENT_URL }}/health || echo "Failed to perform a health check"
