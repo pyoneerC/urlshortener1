@@ -24,7 +24,11 @@ countries = {}
 app = FastAPI(
     title="BlinkLink",
     description=(
-        "API RESTful para acortar URLs.\n\n"
+        "Servicio acortador de URL de alto rendimiento.\n\n"
+        
+        "##### Ver en [Docker Hub](https://hub.docker.com/r/maxcomperatore/blinklink).\n\n"
+        "##### Ver en [GitHub](https://github.com/pyoneerC/blinklink)."
+        
         "### Pasos para usarla:\n\n"
         "1. **Haz deploy en Render**:\n"
         "   - Clona el repositorio desde [GitHub](https://github.com/pyoneerC/urlshortener).\n"
